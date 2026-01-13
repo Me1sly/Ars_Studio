@@ -7,259 +7,476 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Дополнительные стили для правильного отображения фона */
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+        }
+        
+        body {
+            position: relative;
+            background: transparent;
+        }
+        
+        /* Фон на весь документ */
+        #background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        #energyCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        
+        /* Основной контент */
+        #site-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Фиксированный заголовок */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        
+        /* Отступ для фиксированного заголовка */
+        main {
+            margin-top: 80px;
+        }
+        
+        /* Полупрозрачные секции для видимости фона */
+        section {
+            background-color: rgba(10, 25, 47, 0.85);
+        }
+    </style>
 </head>
 <body>
-    <!-- Шапка с навигацией -->
-    <header>
-        <div class="container">
-            <nav>
-                <a href="#" class="logo" id="logoLink">
-    <img src="123.jpg" alt="ARS Studio" class="logo-img">
-    <span>ARS Studio</span>
-</a>
-                
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="#home" class="nav-link active" data-target="home">Главная</a></li>
-                    <li><a href="#works" class="nav-link" data-target="works">Портфолио</a></li>
-                    <li><a href="#contacts" class="nav-link" data-target="contacts">Контакты</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <!-- Анимированный фон -->
+    <div id="background-container">
+        <canvas id="energyCanvas"></canvas>
+    </div>
     
-    <!-- Основной контент -->
-    <main>
-        <!-- Главная страница -->
-        <section id="home" class="active">
+    <!-- Весь контент сайта -->
+    <div id="site-content">
+        <!-- Шапка с навигацией -->
+        <header>
             <div class="container">
-                <div class="hero">
-                    <div class="logo-container">
-                        <div class="logo-placeholder">
-                            <img src="123.jpg" alt="ARS Studio" class="main-logo">
-                        </div>
-                        <h1 class="studio-name">ARS Studio</h1>
-                        <p class="studio-tagline">Создаем будущее вашего бренда через визуальные решения</p>
-                    </div>
+                <nav>
+                    <a href="#" class="logo" id="logoLink">
+                        <img src="123.jpg" alt="ARS Studio" class="logo-img">
+                        <span>ARS Studio</span>
+                    </a>
                     
-                    <div class="services">
-                        <div class="service-card">
-                            <div class="service-icon">
-                                <i class="fas fa-paint-brush"></i>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    
+                    <ul class="nav-links" id="navLinks">
+                        <li><a href="#home" class="nav-link active" data-target="home">Главная</a></li>
+                        <li><a href="#works" class="nav-link" data-target="works">Портфолио</a></li>
+                        <li><a href="#contacts" class="nav-link" data-target="contacts">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        
+        <!-- Основной контент -->
+        <main>
+            <!-- Главная страница -->
+            <section id="home" class="active">
+                <div class="container">
+                    <div class="hero">
+                        <div class="logo-container">
+                            <div class="logo-placeholder">
+                                <img src="123.jpg" alt="ARS Studio" class="main-logo">
                             </div>
-                            <h3>Графический дизайн</h3>
-                            <p>Создание уникального визуального стиля для вашего бренда: логотипы, брендбуки, полиграфия и рекламные материалы.</p>
+                            <h1 class="studio-name">ARS Studio</h1>
+                            <p class="studio-tagline">Создаем будущее вашего бренда через визуальные решения</p>
                         </div>
                         
-                        <div class="service-card">
-                            <div class="service-icon">
+                        <div class="services">
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-paint-brush"></i>
+                                </div>
+                                <h3>Графический дизайн</h3>
+                                <p>Создание уникального визуального стиля для вашего бренда: логотипы, брендбуки, полиграфия и рекламные материалы.</p>
+                            </div>
+                            
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-film"></i>
+                                </div>
+                                <h3>Моушен дизайн</h3>
+                                <p>Оживление ваших идей через анимацию: ролики для соцсетей, презентации, анимация логотипов и инфографика.</p>
+                            </div>
+                            
+                            <div class="service-card">
+                                <div class="service-icon">
+                                    <i class="fas fa-cube"></i>
+                                </div>
+                                <h3>3D Дизайн</h3>
+                                <p>Создание трехмерных моделей, визуализация продуктов, архитектурная визуализация и 3D анимация.</p>
+                                <div class="coming-soon">Скоро будет</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Портфолио -->
+            <section id="works">
+                <div class="container">
+                    <h2 class="section-title">Наше портфолио</h2>
+                    <p class="section-subtitle">Примеры наших работ в различных направлениях дизайна</p>
+                    
+                    <div class="work-filter">
+                        <button class="filter-btn active" data-filter="all">Все работы</button>
+                        <button class="filter-btn" data-filter="graphic">Графический дизайн</button>
+                        <button class="filter-btn" data-filter="motion">Моушен дизайн</button>
+                        <button class="filter-btn" data-filter="3d">3D графика</button>
+                    </div>
+                    
+                    <div class="work-grid">
+                        <div class="work-item" data-category="graphic">
+                            <div class="work-img">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <div class="work-info">
+                                <h3>Брендинг для кофейни "Aroma"</h3>
+                                <p>Полный брендбук, включая логотип, упаковку, меню и фирменный стиль</p>
+                            </div>
+                        </div>
+                        
+                        <div class="work-item" data-category="motion">
+                            <div class="work-img">
                                 <i class="fas fa-film"></i>
                             </div>
-                            <h3>Моушен дизайн</h3>
-                            <p>Оживление ваших идей через анимацию: ролики для соцсетей, презентации, анимация логотипов и инфографика.</p>
+                            <div class="work-info">
+                                <h3>Анимационный ролик для приложения</h3>
+                                <p>30-секундный промо-ролик для запуска нового мобильного приложения</p>
+                            </div>
                         </div>
                         
-                        <div class="service-card">
-                            <div class="service-icon">
+                        <div class="work-item" data-category="graphic">
+                            <div class="work-img">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <div class="work-info">
+                                <h3>Рекламная кампания для фитнес-центра</h3>
+                                <p>Комплекс рекламных материалов для запуска нового фитнес-центра</p>
+                            </div>
+                        </div>
+                        
+                        <div class="work-item" data-category="3d">
+                            <div class="work-img">
                                 <i class="fas fa-cube"></i>
                             </div>
-                            <h3>3D Дизайн</h3>
-                            <p>Создание трехмерных моделей, визуализация продуктов, архитектурная визуализация и 3D анимация.</p>
-                            <div class="coming-soon">Скоро будет</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Портфолио -->
-        <section id="works">
-            <div class="container">
-                <h2 class="section-title">Наше портфолио</h2>
-                <p class="section-subtitle">Примеры наших работ в различных направлениях дизайна</p>
-                
-                <div class="work-filter">
-                    <button class="filter-btn active" data-filter="all">Все работы</button>
-                    <button class="filter-btn" data-filter="graphic">Графический дизайн</button>
-                    <button class="filter-btn" data-filter="motion">Моушен дизайн</button>
-                    <button class="filter-btn" data-filter="3d">3D графика</button>
-                </div>
-                
-                <div class="work-grid">
-                    <div class="work-item" data-category="graphic">
-                        <div class="work-img">
-                            <i class="fas fa-palette"></i>
-                        </div>
-                        <div class="work-info">
-                            <h3>Брендинг для кофейни "Aroma"</h3>
-                            <p>Полный брендбук, включая логотип, упаковку, меню и фирменный стиль</p>
-                        </div>
-                    </div>
-                    
-                    <div class="work-item" data-category="motion">
-                        <div class="work-img">
-                            <i class="fas fa-film"></i>
-                        </div>
-                        <div class="work-info">
-                            <h3>Анимационный ролик для приложения</h3>
-                            <p>30-секундный промо-ролик для запуска нового мобильного приложения</p>
-                        </div>
-                    </div>
-                    
-                    <div class="work-item" data-category="graphic">
-                        <div class="work-img">
-                            <i class="fas fa-bullhorn"></i>
-                        </div>
-                        <div class="work-info">
-                            <h3>Рекламная кампания для фитнес-центра</h3>
-                            <p>Комплекс рекламных материалов для запуска нового фитнес-центра</p>
-                        </div>
-                    </div>
-                    
-                    <div class="work-item" data-category="3d">
-                        <div class="work-img">
-                            <i class="fas fa-cube"></i>
-                        </div>
-                        <div class="work-info">
-                            <h3>3D визуализация интерьера</h3>
-                            <p>Фотореалистичная 3D визуализация дизайна интерьера ресторана</p>
-                        </div>
-                    </div>
-                    
-                    <div class="work-item" data-category="motion">
-                        <div class="work-img">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <div class="work-info">
-                            <h3>Анимированная инфографика</h3>
-                            <p>Серия анимированных инфографик для годового отчета компании</p>
-                        </div>
-                    </div>
-                    
-                    <div class="work-item" data-category="graphic">
-                        <div class="work-img">
-                            <i class="fas fa-newspaper"></i>
-                        </div>
-                        <div class="work-info">
-                            <h3>Дизайн упаковки для косметики</h3>
-                            <p>Разработка дизайна упаковки для новой линии органической косметики</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Контакты -->
-        <section id="contacts">
-            <div class="container">
-                <h2 class="section-title">Свяжитесь с нами</h2>
-                <p class="section-subtitle">Обсудим ваш проект и создадим уникальное решение для вашего бренда</p>
-                
-                <div class="contacts-container">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fab fa-telegram"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>Telegram</h3>
-                                <a href="https://t.me/Ars_Amore" target="_blank">@Ars_Amore</a>
+                            <div class="work-info">
+                                <h3>3D визуализация интерьера</h3>
+                                <p>Фотореалистичная 3D визуализация дизайна интерьера ресторана</p>
                             </div>
                         </div>
                         
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fab fa-whatsapp"></i>
+                        <div class="work-item" data-category="motion">
+                            <div class="work-img">
+                                <i class="fas fa-video"></i>
                             </div>
-                            <div class="contact-details">
-                                <h3>WhatsApp</h3>
-                                <a href="https://wa.me/79933340271" target="_blank">+7 993 334 02 71</a>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h3>Телефон</h3>
-                                <a href="tel:+79933340271">+7 993 334 02 71</a>
+                            <div class="work-info">
+                                <h3>Анимированная инфографика</h3>
+                                <p>Серия анимированных инфографик для годового отчета компании</p>
                             </div>
                         </div>
                         
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
+                        <div class="work-item" data-category="graphic">
+                            <div class="work-img">
+                                <i class="fas fa-newspaper"></i>
                             </div>
-                            <div class="contact-details">
-                                <h3>Почта</h3>
-                                <a href="mailto:arsenbudagyan3@mail.ru">arsenbudagyan3@mail.ru</a>
+                            <div class="work-info">
+                                <h3>Дизайн упаковки для косметики</h3>
+                                <p>Разработка дизайна упаковки для новой линии органической косметики</p>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="contact-form">
-                        <form id="contactForm">
-                            <div class="form-group">
-                                <label for="name">Ваше имя</label>
-                                <input type="text" id="name" class="form-control" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="email">Ваш email</label>
-                                <input type="email" id="email" class="form-control" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="subject">Тема</label>
-                                <input type="text" id="subject" class="form-control" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="message">Сообщение</label>
-                                <textarea id="message" class="form-control" placeholder="Опишите ваш проект или задайте вопрос..." required></textarea>
-                            </div>
-                            
-                            <button type="submit" class="submit-btn">Отправить заявку</button>
-                            
-                            <div class="form-message" id="formMessage"></div>
-                        </form>
                     </div>
                 </div>
-            </div>
-        </section>
-    </main>
-    
-    <!-- Футер -->
-    <footer>
-        <div class="container">
-            <div class="footer-logo">
-                <img src="123.jpg" alt="ARS Studio" class="footer-logo-img">
-                <span>ARS Studio</span>
-            </div>
+            </section>
             
-            <div class="social-links">
-                <a href="https://t.me/Ars_Amore" class="social-link" target="_blank">
-                    <i class="fab fa-telegram"></i>
-                </a>
-                <a href="https://wa.me/79933340271" class="social-link" target="_blank">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <a href="mailto:arsenbudagyan3@mail.ru" class="social-link">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="tel:+79933340271" class="social-link">
-                    <i class="fas fa-phone"></i>
-                </a>
+            <!-- Контакты -->
+            <section id="contacts">
+                <div class="container">
+                    <h2 class="section-title">Свяжитесь с нами</h2>
+                    <p class="section-subtitle">Обсудим ваш проект и создадим уникальное решение для вашего бренда</p>
+                    
+                    <div class="contacts-container">
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fab fa-telegram"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Telegram</h3>
+                                    <a href="https://t.me/Ars_Amore" target="_blank">@Ars_Amore</a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fab fa-whatsapp"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>WhatsApp</h3>
+                                    <a href="https://wa.me/79933340271" target="_blank">+7 993 334 02 71</a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Телефон</h3>
+                                    <a href="tel:+79933340271">+7 993 334 02 71</a>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h3>Почта</h3>
+                                    <a href="mailto:arsenbudagyan3@mail.ru">arsenbudagyan3@mail.ru</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-form">
+                            <form id="contactForm">
+                                <div class="form-group">
+                                    <label for="name">Ваше имя</label>
+                                    <input type="text" id="name" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Ваш email</label>
+                                    <input type="email" id="email" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="subject">Тема</label>
+                                    <input type="text" id="subject" class="form-control" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="message">Сообщение</label>
+                                    <textarea id="message" class="form-control" placeholder="Опишите ваш проект или задайте вопрос..." required></textarea>
+                                </div>
+                                
+                                <button type="submit" class="submit-btn">Отправить заявку</button>
+                                
+                                <div class="form-message" id="formMessage"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Футер -->
+        <footer>
+            <div class="container">
+                <div class="footer-logo">
+                    <img src="123.jpg" alt="ARS Studio" class="footer-logo-img">
+                    <span>ARS Studio</span>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://t.me/Ars_Amore" class="social-link" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="https://wa.me/79933340271" class="social-link" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="mailto:arsenbudagyan3@mail.ru" class="social-link">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="tel:+79933340271" class="social-link">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+                
+                <p class="copyright">© 2023 ARS Studio. Все права защищены.</p>
             </div>
-            
-            <p class="copyright">© 2023 ARS Studio. Все права защищены.</p>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
+    <!-- Скрипт анимированного фона -->
+    <script>
+    // energy-background.js - прямо в HTML
+    document.addEventListener('DOMContentLoaded', function() {
+        const canvas = document.getElementById('energyCanvas');
+        if (!canvas) return;
+        
+        // Отключаем на мобильных для производительности
+        if (window.innerWidth <= 768) {
+            canvas.style.display = 'none';
+            return;
+        }
+        
+        const ctx = canvas.getContext('2d');
+        
+        // Устанавливаем размер canvas на весь экран
+        function setCanvasSize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            return { width: canvas.width, height: canvas.height };
+        }
+        
+        let { width, height } = setCanvasSize();
+        
+        // Настройки эффекта
+        const particles = [];
+        const particleCount = 50;
+        const connectionDistance = 100;
+        const mouseRadius = 120;
+        
+        let mouse = { x: width / 2, y: height / 2, active: false };
+        
+        // Создаем частицы
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    radius: Math.random() * 1.5 + 0.5,
+                    color: `hsla(${190 + Math.random() * 40}, 70%, 60%, ${0.2 + Math.random() * 0.3})`
+                });
+            }
+        }
+        
+        // Отслеживаем мышь
+        window.addEventListener('mousemove', function(e) {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+            mouse.active = true;
+        });
+        
+        window.addEventListener('mouseleave', function() {
+            mouse.active = false;
+        });
+        
+        // Анимация
+        function animate() {
+            // Легкое затемнение для эффекта следа
+            ctx.fillStyle = 'rgba(10, 25, 47, 0.05)';
+            ctx.fillRect(0, 0, width, height);
+            
+            // Обновляем частицы
+            particles.forEach(p => {
+                // Движение
+                p.x += p.vx;
+                p.y += p.vy;
+                
+                // Отскок от границ
+                if (p.x < 0 || p.x > width) p.vx *= -0.95;
+                if (p.y < 0 || p.y > height) p.vy *= -0.95;
+                
+                // Реакция на мышь
+                if (mouse.active) {
+                    const dx = mouse.x - p.x;
+                    const dy = mouse.y - p.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < mouseRadius) {
+                        const force = (mouseRadius - distance) / mouseRadius;
+                        const angle = Math.atan2(dy, dx);
+                        
+                        // Отталкивание от мыши
+                        p.vx -= Math.cos(angle) * force * 0.3;
+                        p.vy -= Math.sin(angle) * force * 0.3;
+                    }
+                }
+                
+                // Сопротивление
+                p.vx *= 0.99;
+                p.vy *= 0.99;
+                
+                // Рисуем частицу
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+                
+                // Свечение
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius * 2, 0, Math.PI * 2);
+                ctx.fillStyle = p.color.replace('0.5', '0.1').replace('0.4', '0.08').replace('0.3', '0.06');
+                ctx.fill();
+            });
+            
+            // Рисуем соединения между частицами
+            ctx.strokeStyle = 'rgba(0, 168, 255, 0.1)';
+            ctx.lineWidth = 0.8;
+            
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const p1 = particles[i];
+                    const p2 = particles[j];
+                    
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < connectionDistance) {
+                        const opacity = 0.2 * (1 - distance / connectionDistance);
+                        ctx.strokeStyle = `rgba(0, 168, 255, ${opacity})`;
+                        
+                        ctx.beginPath();
+                        ctx.moveTo(p1.x, p1.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        // Ресайз окна
+        window.addEventListener('resize', function() {
+            const newSize = setCanvasSize();
+            width = newSize.width;
+            height = newSize.height;
+            
+            // Обновляем позиции частиц
+            particles.forEach(p => {
+                p.x = Math.random() * width;
+                p.y = Math.random() * height;
+            });
+        });
+        
+        // Инициализация
+        initParticles();
+        animate();
+    });
+    </script>
+    
+    <!-- Основной скрипт сайта -->
     <script src="script.js"></script>
 </body>
 </html>
