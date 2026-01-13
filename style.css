@@ -828,6 +828,172 @@ footer {
     }
 }
 
+/* ========== ЭНЕРГЕТИЧЕСКИЕ НИТИ НА ФОНЕ ========== */
+#energyCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10; /* Убедимся, что фон ПОД всем */
+    background: linear-gradient(to bottom, 
+        rgba(10, 25, 47, 0.95) 0%,
+        rgba(17, 34, 64, 0.9) 50%,
+        rgba(10, 25, 47, 0.95) 100%);
+    pointer-events: auto; /* Убираем это, чтобы мышь работала */
+}
 
+/* ОСНОВНОЙ КОНТЕНТ ДОЛЖЕН БЫТЬ ВЫШЕ ФОНА */
+body {
+    position: relative;
+    z-index: 1;
+}
+
+/* ВСЕ остальные элементы должны иметь прозрачный фон */
+header {
+    background-color: rgba(10, 25, 47, 0.85) !important;
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1000;
+}
+
+section {
+    background-color: transparent !important;
+    position: relative;
+    z-index: 1;
+}
+
+.service-card, .work-item, .contact-form {
+    background-color: rgba(17, 34, 64, 0.9) !important;
+    backdrop-filter: blur(5px);
+}
+
+footer {
+    background-color: rgba(17, 34, 64, 0.9) !important;
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
+}
+
+/* ========== ФИКСИРОВАННЫЙ ФОН НА ВСЁ ОКНО ========== */
+#background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -9999; /* ОЧЕНЬ низкий z-index */
+    pointer-events: none; /* Мышь проходит сквозь фон */
+}
+
+#energyCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: linear-gradient(to bottom, 
+        rgba(10, 25, 47, 1) 0%,
+        rgba(10, 25, 47, 0.98) 100%);
+}
+
+/* ========== ВЕСЬ КОНТЕНТ САЙТА ========== */
+#site-content {
+    position: relative;
+    z-index: 1; /* Выше фона */
+    background: transparent; /* Прозрачный фон для контента */
+}
+
+/* ВОЗВРАЩАЕМ НОРМАЛЬНЫЕ ФОНЫ ДЛЯ КОНТЕНТА */
+body {
+    background: transparent !important;
+}
+
+header {
+    background-color: rgba(10, 25, 47, 0.95) !important;
+    position: relative;
+    z-index: 1000;
+}
+
+section {
+    background-color: transparent;
+    position: relative;
+}
+
+.service-card, .work-item, .contact-form {
+    background-color: var(--secondary) !important;
+    /* Убираем backdrop-filter для производительности */
+}
+
+footer {
+    background-color: var(--secondary) !important;
+    position: relative;
+}
+
+/* ========== ФОН САЙТА ========== */
+#background-container {
+    position: absolute; /* Меняем с fixed на absolute */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Просто -1, не -9999 */
+    pointer-events: none;
+    overflow: hidden;
+}
+
+#energyCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* ========== ОСНОВНОЙ СТИЛЬ ДОКУМЕНТА ========== */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    position: relative;
+}
+
+body {
+    background: transparent;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* КОНТЕНТ должен быть ПОВЕРХ фона */
+#site-content {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+}
+
+/* Делаем секции видимыми */
+section {
+    position: relative;
+    z-index: 2;
+    background: rgba(10, 25, 47, 0.7); /* Полупрозрачный фон для контента */
+    backdrop-filter: blur(5px);
+    margin-bottom: 20px; /* Отступы между секциями */
+}
+
+/* Заголовок остается сверху */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: rgba(10, 25, 47, 0.95) !important;
+    backdrop-filter: blur(10px);
+}
+
+/* Основное содержимое должно учитывать фиксированный заголовок */
+main {
+    margin-top: 80px; /* Высота заголовка */
+    position: relative;
+    z-index: 1;
+}
 
 }
