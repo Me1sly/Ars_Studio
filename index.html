@@ -3,584 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arsen | Дизайн и моушен</title>
+    <title>ARS Studio | Графический, Моушен и 3D Дизайн</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #0a192f;
-            --secondary: #112240;
-            --accent: #00a8ff;
-            --accent-light: #4dc3ff;
-            --text: #e6f1ff;
-            --text-secondary: #8892b0;
-            --border: #233554;
-            --shadow: rgba(2, 12, 27, 0.7);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--primary);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-        }
-        
-        /* Навигация */
-        header {
-            background-color: rgba(10, 25, 47, 0.95);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px var(--shadow);
-            transition: all 0.3s ease;
-        }
-        
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--accent);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-        
-        .logo span {
-            color: var(--text);
-            margin-left: 5px;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin-left: 40px;
-        }
-        
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 16px;
-            transition: color 0.3s ease;
-            position: relative;
-            padding: 5px 0;
-        }
-        
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        
-        /* Основной контент */
-        main {
-            margin-top: 80px;
-        }
-        
-        section {
-            padding: 100px 0;
-            min-height: 100vh;
-            display: none;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        
-        section.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-            animation: fadeIn 0.8s ease forwards;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Главная страница */
-        .hero {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        
-        .slogan {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 30px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-light));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            line-height: 1.2;
-        }
-        
-        .slogan span {
-            display: block;
-            font-size: 2.5rem;
-        }
-        
-        .intro {
-            max-width: 800px;
-            margin: 0 auto 50px;
-            font-size: 18px;
-            color: var(--text-secondary);
-        }
-        
-        .services {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 60px;
-            width: 100%;
-        }
-        
-        .service-card {
-            background-color: var(--secondary);
-            border-radius: 10px;
-            padding: 30px;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
-            box-shadow: 0 10px 30px var(--shadow);
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-            box-shadow: 0 15px 40px rgba(0, 168, 255, 0.1);
-        }
-        
-        .service-icon {
-            font-size: 40px;
-            color: var(--accent);
-            margin-bottom: 20px;
-        }
-        
-        .service-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
-        
-        .service-card p {
-            color: var(--text-secondary);
-        }
-        
-        /* Вкладка "Мои работы" */
-        .work-filter {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 50px;
-        }
-        
-        .filter-btn {
-            background-color: var(--secondary);
-            color: var(--text);
-            border: 1px solid var(--border);
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        
-        .filter-btn.active, .filter-btn:hover {
-            background-color: var(--accent);
-            color: var(--primary);
-            border-color: var(--accent);
-        }
-        
-        .work-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        
-        .work-item {
-            background-color: var(--secondary);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.5s ease forwards;
-        }
-        
-        .work-item:nth-child(1) { animation-delay: 0.1s; }
-        .work-item:nth-child(2) { animation-delay: 0.2s; }
-        .work-item:nth-child(3) { animation-delay: 0.3s; }
-        .work-item:nth-child(4) { animation-delay: 0.4s; }
-        .work-item:nth-child(5) { animation-delay: 0.5s; }
-        .work-item:nth-child(6) { animation-delay: 0.6s; }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .work-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px var(--shadow);
-            border-color: var(--accent);
-        }
-        
-        .work-img {
-            height: 200px;
-            background-color: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-            color: var(--accent);
-        }
-        
-        .work-info {
-            padding: 20px;
-        }
-        
-        .work-info h3 {
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
-        
-        .work-info p {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-        
-        /* Вкладка "Контакты" */
-        .contacts-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-        
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background-color: var(--secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: var(--accent);
-        }
-        
-        .contact-details h3 {
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-        
-        .contact-details p, .contact-details a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .contact-details a:hover {
-            color: var(--accent);
-        }
-        
-        /* Форма обратной связи */
-        .contact-form {
-            background-color: var(--secondary);
-            padding: 40px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            background-color: var(--primary);
-            border: 1px solid var(--border);
-            border-radius: 5px;
-            color: var(--text);
-            font-family: 'Roboto', sans-serif;
-            transition: border-color 0.3s ease;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
-        
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-        
-        .submit-btn {
-            background-color: var(--accent);
-            color: var(--primary);
-            border: none;
-            padding: 14px 30px;
-            border-radius: 5px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            font-size: 16px;
-        }
-        
-        .submit-btn:hover {
-            background-color: var(--accent-light);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 168, 255, 0.2);
-        }
-        
-        .form-message {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-            display: none;
-        }
-        
-        .form-message.success {
-            background-color: rgba(0, 255, 0, 0.1);
-            color: #4CAF50;
-            display: block;
-        }
-        
-        .form-message.error {
-            background-color: rgba(255, 0, 0, 0.1);
-            color: #f44336;
-            display: block;
-        }
-        
-        /* Футер */
-        footer {
-            background-color: var(--secondary);
-            padding: 30px 0;
-            text-align: center;
-            border-top: 1px solid var(--border);
-            margin-top: 50px;
-        }
-        
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .social-link:hover {
-            background-color: var(--accent);
-            color: var(--primary);
-            transform: translateY(-5px);
-        }
-        
-        .copyright {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-        
-        /* Адаптация под мобильные устройства */
-        @media (max-width: 992px) {
-            .slogan {
-                font-size: 2.8rem;
-            }
-            
-            .slogan span {
-                font-size: 2rem;
-            }
-            
-            .contacts-container {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .nav-links {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                background-color: var(--primary);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                padding: 20px 0;
-                box-shadow: 0 10px 20px var(--shadow);
-                transform: translateX(-100%);
-                opacity: 0;
-                transition: all 0.5s ease;
-                z-index: 999;
-            }
-            
-            .nav-links.active {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            
-            .nav-links li {
-                margin: 20px 0;
-                opacity: 0;
-                transform: translateY(20px);
-                transition: all 0.3s ease;
-            }
-            
-            .nav-links.active li {
-                opacity: 1;
-                transform: translateY(0);
-            }
-            
-            .nav-links li:nth-child(1) { transition-delay: 0.1s; }
-            .nav-links li:nth-child(2) { transition-delay: 0.2s; }
-            .nav-links li:nth-child(3) { transition-delay: 0.3s; }
-            
-            .slogan {
-                font-size: 2.2rem;
-            }
-            
-            .slogan span {
-                font-size: 1.6rem;
-            }
-            
-            .intro {
-                font-size: 16px;
-            }
-            
-            section {
-                padding: 80px 0;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .container {
-                width: 95%;
-                padding: 0 10px;
-            }
-            
-            .slogan {
-                font-size: 1.8rem;
-            }
-            
-            .slogan span {
-                font-size: 1.4rem;
-            }
-            
-            .work-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .contact-form {
-                padding: 25px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Шапка с навигацией -->
     <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo">
-                    <i class="fas fa-palette"></i>
-                    <span>Arsen</span>
-                </a>
+                <a href="#" class="logo" id="logoLink">
+    <img src="123.jpg" alt="ARS Studio" class="logo-img">
+    <span>ARS Studio</span>
+</a>
                 
                 <button class="mobile-menu-btn" id="mobileMenuBtn">
                     <i class="fas fa-bars"></i>
@@ -588,7 +24,7 @@
                 
                 <ul class="nav-links" id="navLinks">
                     <li><a href="#home" class="nav-link active" data-target="home">Главная</a></li>
-                    <li><a href="#works" class="nav-link" data-target="works">Мои работы</a></li>
+                    <li><a href="#works" class="nav-link" data-target="works">Портфолио</a></li>
                     <li><a href="#contacts" class="nav-link" data-target="contacts">Контакты</a></li>
                 </ul>
             </nav>
@@ -601,9 +37,13 @@
         <section id="home" class="active">
             <div class="container">
                 <div class="hero">
-                    <h1 class="slogan">СОЗДАЮ БУДУЩЕЕ<br><span>ВАШЕГО БРЕНДА!</span></h1>
-                    
-                    <p class="intro">Я профессиональный дизайнер, специализирующийся на графическом дизайне, моушн-дизайне, 3D-графике и создании сайтов. Помогаю брендам обрести уникальный визуальный язык и выделиться на рынке.</p>
+                    <div class="logo-container">
+                        <div class="logo-placeholder">
+                            <img src="123.jpg" alt="ARS Studio" class="main-logo">
+                        </div>
+                        <h1 class="studio-name">ARS Studio</h1>
+                        <p class="studio-tagline">Создаем будущее вашего бренда через визуальные решения</p>
+                    </div>
                     
                     <div class="services">
                         <div class="service-card">
@@ -611,99 +51,61 @@
                                 <i class="fas fa-paint-brush"></i>
                             </div>
                             <h3>Графический дизайн</h3>
-                            <p>Создание логотипов, брендбуков, полиграфии и рекламных материалов для вашего бизнеса.</p>
+                            <p>Создание уникального визуального стиля для вашего бренда: логотипы, брендбуки, полиграфия и рекламные материалы.</p>
                         </div>
                         
                         <div class="service-card">
                             <div class="service-icon">
                                 <i class="fas fa-film"></i>
                             </div>
-                            <h3>Моушн дизайн</h3>
-                            <p>Анимация логотипов, рекламные ролики, инфографика и визуализация данных.</p>
+                            <h3>Моушен дизайн</h3>
+                            <p>Оживление ваших идей через анимацию: ролики для соцсетей, презентации, анимация логотипов и инфографика.</p>
                         </div>
                         
                         <div class="service-card">
                             <div class="service-icon">
                                 <i class="fas fa-cube"></i>
                             </div>
-                            <h3>3D графика</h3>
-                            <p>Моделирование, текстурирование, рендеринг и анимация трехмерных объектов.</p>
-                        </div>
-                        
-                        <div class="service-card">
-                            <div class="service-icon">
-                                <i class="fas fa-code"></i>
-                            </div>
-                            <h3>Создание сайтов</h3>
-                            <p>Разработка современных адаптивных сайтов с уникальным дизайном и функционалом.</p>
+                            <h3>3D Дизайн</h3>
+                            <p>Создание трехмерных моделей, визуализация продуктов, архитектурная визуализация и 3D анимация.</p>
+                            <div class="coming-soon">Скоро будет</div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- Мои работы -->
+        <!-- Портфолио -->
         <section id="works">
             <div class="container">
-                <h2 style="text-align: center; margin-bottom: 20px; font-size: 2.5rem;">Мои работы</h2>
-                <p style="text-align: center; color: var(--text-secondary); max-width: 700px; margin: 0 auto 50px;">Здесь представлены мои лучшие работы в различных направлениях дизайна</p>
+                <h2 class="section-title">Наше портфолио</h2>
+                <p class="section-subtitle">Примеры наших работ в различных направлениях дизайна</p>
                 
                 <div class="work-filter">
                     <button class="filter-btn active" data-filter="all">Все работы</button>
-                    <button class="filter-btn" data-filter="motion">Моушн дизайн</button>
                     <button class="filter-btn" data-filter="graphic">Графический дизайн</button>
+                    <button class="filter-btn" data-filter="motion">Моушен дизайн</button>
                     <button class="filter-btn" data-filter="3d">3D графика</button>
-                    <button class="filter-btn" data-filter="web">Создание сайтов</button>
                 </div>
                 
                 <div class="work-grid">
-                    <div class="work-item" data-category="motion">
-                        <div class="work-img">
-                            <i class="fas fa-film"></i>
-                        </div>
-                        <div class="work-info">
-                            <h3>Анимация логотипа для TechCorp</h3>
-                            <p>Создание динамичной анимации логотипа для технологической компании</p>
-                        </div>
-                    </div>
-                    
                     <div class="work-item" data-category="graphic">
                         <div class="work-img">
                             <i class="fas fa-palette"></i>
                         </div>
                         <div class="work-info">
-                            <h3>Брендбук для ресторана "Вкус Востока"</h3>
-                            <p>Разработка полного брендбука, включая логотип, цветовую палитру и элементы фирменного стиля</p>
-                        </div>
-                    </div>
-                    
-                    <div class="work-item" data-category="3d">
-                        <div class="work-img">
-                            <i class="fas fa-cube"></i>
-                        </div>
-                        <div class="work-info">
-                            <h3>3D модель концепт-кара</h3>
-                            <p>Фотореалистичная 3D модель автомобиля будущего для презентации</p>
-                        </div>
-                    </div>
-                    
-                    <div class="work-item" data-category="web">
-                        <div class="work-img">
-                            <i class="fas fa-laptop-code"></i>
-                        </div>
-                        <div class="work-info">
-                            <h3>Сайт для студии йоги</h3>
-                            <p>Адаптивный сайт с системой бронирования занятий и интеграцией платежей</p>
+                            <h3>Брендинг для кофейни "Aroma"</h3>
+                            <p>Полный брендбук, включая логотип, упаковку, меню и фирменный стиль</p>
                         </div>
                     </div>
                     
                     <div class="work-item" data-category="motion">
                         <div class="work-img">
-                            <i class="fas fa-video"></i>
+                            <i class="fas fa-film"></i>
                         </div>
                         <div class="work-info">
-                            <h3>Рекламный ролик для косметики</h3>
-                            <p>30-секундный рекламный ролик с 3D элементами для запуска новой линии косметики</p>
+                            <h3>Анимационный ролик для приложения</h3>
+                            <p>30-секундный промо-ролик для запуска нового мобильного приложения</p>
                         </div>
                     </div>
                     
@@ -712,8 +114,38 @@
                             <i class="fas fa-bullhorn"></i>
                         </div>
                         <div class="work-info">
-                            <h3>Рекламная кампания для фитнес-клуба</h3>
-                            <p>Комплекс рекламных материалов: баннеры, листовки, посты для соцсетей</p>
+                            <h3>Рекламная кампания для фитнес-центра</h3>
+                            <p>Комплекс рекламных материалов для запуска нового фитнес-центра</p>
+                        </div>
+                    </div>
+                    
+                    <div class="work-item" data-category="3d">
+                        <div class="work-img">
+                            <i class="fas fa-cube"></i>
+                        </div>
+                        <div class="work-info">
+                            <h3>3D визуализация интерьера</h3>
+                            <p>Фотореалистичная 3D визуализация дизайна интерьера ресторана</p>
+                        </div>
+                    </div>
+                    
+                    <div class="work-item" data-category="motion">
+                        <div class="work-img">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <div class="work-info">
+                            <h3>Анимированная инфографика</h3>
+                            <p>Серия анимированных инфографик для годового отчета компании</p>
+                        </div>
+                    </div>
+                    
+                    <div class="work-item" data-category="graphic">
+                        <div class="work-img">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <div class="work-info">
+                            <h3>Дизайн упаковки для косметики</h3>
+                            <p>Разработка дизайна упаковки для новой линии органической косметики</p>
                         </div>
                     </div>
                 </div>
@@ -723,8 +155,8 @@
         <!-- Контакты -->
         <section id="contacts">
             <div class="container">
-                <h2 style="text-align: center; margin-bottom: 20px; font-size: 2.5rem;">Контакты</h2>
-                <p style="text-align: center; color: var(--text-secondary); max-width: 700px; margin: 0 auto 50px;">Свяжитесь со мной любым удобным способом или оставьте заявку для обсуждения вашего проекта</p>
+                <h2 class="section-title">Свяжитесь с нами</h2>
+                <p class="section-subtitle">Обсудим ваш проект и создадим уникальное решение для вашего бренда</p>
                 
                 <div class="contacts-container">
                     <div class="contact-info">
@@ -788,7 +220,7 @@
                             
                             <div class="form-group">
                                 <label for="message">Сообщение</label>
-                                <textarea id="message" class="form-control" required></textarea>
+                                <textarea id="message" class="form-control" placeholder="Опишите ваш проект или задайте вопрос..." required></textarea>
                             </div>
                             
                             <button type="submit" class="submit-btn">Отправить заявку</button>
@@ -804,6 +236,11 @@
     <!-- Футер -->
     <footer>
         <div class="container">
+            <div class="footer-logo">
+                <img src="123.jpg" alt="ARS Studio" class="footer-logo-img">
+                <span>ARS Studio</span>
+            </div>
+            
             <div class="social-links">
                 <a href="https://t.me/Ars_Amore" class="social-link" target="_blank">
                     <i class="fab fa-telegram"></i>
@@ -819,175 +256,10 @@
                 </a>
             </div>
             
-            <p class="copyright">© 2023 Arsen. Все права защищены.</p>
+            <p class="copyright">© 2023 ARS Studio. Все права защищены.</p>
         </div>
     </footer>
 
-    <script>
-        // Навигация между вкладками
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('section');
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const navLinksContainer = document.getElementById('navLinks');
-            const body = document.body;
-            
-            // Мобильное меню - исправленная версия
-            mobileMenuBtn.addEventListener('click', function(e) {
-                e.stopPropagation(); // Предотвращаем всплытие события
-                
-                navLinksContainer.classList.toggle('active');
-                
-                if (navLinksContainer.classList.contains('active')) {
-                    this.innerHTML = '<i class="fas fa-times"></i>';
-                    body.style.overflow = 'hidden'; // Блокируем прокрутку тела при открытом меню
-                } else {
-                    this.innerHTML = '<i class="fas fa-bars"></i>';
-                    body.style.overflow = 'auto'; // Восстанавливаем прокрутку
-                }
-            });
-            
-            // Закрытие меню при клике на ссылку
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Удаляем активный класс у всех ссылок и секций
-                    navLinks.forEach(item => item.classList.remove('active'));
-                    sections.forEach(section => section.classList.remove('active'));
-                    
-                    // Добавляем активный класс текущей ссылке и секции
-                    this.classList.add('active');
-                    const targetId = this.getAttribute('data-target');
-                    document.getElementById(targetId).classList.add('active');
-                    
-                    // Закрываем мобильное меню после выбора пункта
-                    if (navLinksContainer.classList.contains('active')) {
-                        navLinksContainer.classList.remove('active');
-                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                        body.style.overflow = 'auto'; // Восстанавливаем прокрутку
-                    }
-                    
-                    // Плавная прокрутка к секции
-                    const targetSection = document.getElementById(targetId);
-                    if (targetSection) {
-                        window.scrollTo({
-                            top: targetSection.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-            
-            // Закрытие меню при клике вне меню
-            document.addEventListener('click', function(e) {
-                if (!navLinksContainer.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                    if (navLinksContainer.classList.contains('active')) {
-                        navLinksContainer.classList.remove('active');
-                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                        body.style.overflow = 'auto'; // Восстанавливаем прокрутку
-                    }
-                }
-            });
-            
-            // Фильтрация работ
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const workItems = document.querySelectorAll('.work-item');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Удаляем активный класс у всех кнопок
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // Добавляем активный класс текущей кнопке
-                    this.classList.add('active');
-                    
-                    const filterValue = this.getAttribute('data-filter');
-                    
-                    // Показываем/скрываем работы в зависимости от фильтра
-                    workItems.forEach(item => {
-                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                            item.style.display = 'block';
-                            // Анимация появления
-                            setTimeout(() => {
-                                item.style.opacity = '1';
-                                item.style.transform = 'translateY(0)';
-                            }, 100);
-                        } else {
-                            item.style.opacity = '0';
-                            item.style.transform = 'translateY(20px)';
-                            setTimeout(() => {
-                                item.style.display = 'none';
-                            }, 300);
-                        }
-                    });
-                });
-            });
-            
-            // Отправка формы
-            const contactForm = document.getElementById('contactForm');
-            const formMessage = document.getElementById('formMessage');
-            
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                // Получаем данные формы
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const subject = document.getElementById('subject').value;
-                const message = document.getElementById('message').value;
-                
-                // Показываем индикатор загрузки
-                const submitBtn = contactForm.querySelector('.submit-btn');
-                const originalBtnText = submitBtn.textContent;
-                submitBtn.textContent = 'Отправка...';
-                submitBtn.disabled = true;
-                
-                // Симуляция отправки (замените на реальную отправку)
-                setTimeout(() => {
-                    formMessage.textContent = 'Заявка отправлена! Я свяжусь с вами в ближайшее время.';
-                    formMessage.className = 'form-message success';
-                    formMessage.style.display = 'block';
-                    
-                    // Очистка формы
-                    contactForm.reset();
-                    
-                    // Восстанавливаем кнопку
-                    submitBtn.textContent = originalBtnText;
-                    submitBtn.disabled = false;
-                    
-                    // Скрываем сообщение через 5 секунд
-                    setTimeout(() => {
-                        formMessage.style.display = 'none';
-                    }, 5000);
-                    
-                    // В реальном проекте здесь должен быть код для отправки данных на ваш email
-                    console.log('Данные для отправки на arsenbudagyan3@mail.ru:');
-                    console.log('Имя:', name);
-                    console.log('Email:', email);
-                    console.log('Тема:', subject);
-                    console.log('Сообщение:', message);
-                }, 1500);
-            });
-            
-            // Плавная прокрутка к якорям (для ссылок в футере)
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
