@@ -17,10 +17,11 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: var(--primary);
+    background-color: transparent; /* Изменено с var(--primary) на transparent */
     color: var(--text);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -37,6 +38,7 @@ header {
     z-index: 1000;
     box-shadow: 0 4px 20px var(--shadow);
     transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
 }
 
 .container {
@@ -118,6 +120,8 @@ nav {
 /* Основной контент */
 main {
     margin-top: 80px;
+    position: relative;
+    z-index: 1;
 }
 
 section {
@@ -127,6 +131,8 @@ section {
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.5s ease, transform 0.5s ease;
+    position: relative;
+    background-color: transparent; /* Убираем темный фон */
 }
 
 section.active {
@@ -218,19 +224,51 @@ section.active {
 }
 
 .service-card {
-    background-color: var(--secondary);
+    background-color: rgba(17, 34, 64, 0.9);
     border-radius: 10px;
     padding: 30px;
     transition: all 0.3s ease;
     border: 1px solid var(--border);
     box-shadow: 0 10px 30px var(--shadow);
     text-align: center;
+    cursor: pointer;
+    position: relative;
+    backdrop-filter: blur(5px);
 }
 
 .service-card:hover {
     transform: translateY(-10px);
     border-color: var(--accent);
-    box-shadow: 0 15px 40px rgba(0, 168, 255, 0.1);
+    box-shadow: 0 15px 40px rgba(0, 168, 255, 0.2);
+}
+
+/* Индикатор кликабельности для карточек услуг */
+.service-card[data-filter]::after {
+    content: 'Перейти к портфолио →';
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.service-card[data-filter]:hover::after {
+    opacity: 1;
+}
+
+/* Для 3D дизайна (скоро будет) */
+.service-card[data-filter="3d"] {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.service-card[data-filter="3d"]:hover {
+    transform: translateY(-5px);
+    border-color: var(--text-secondary);
 }
 
 .service-icon {
@@ -258,6 +296,8 @@ section.active {
     font-size: 14px;
     font-weight: 600;
     margin-top: 10px;
+    position: relative;
+    top: -17px; /* Поднять на 15px */
 }
 
 /* Портфолио */
@@ -270,7 +310,7 @@ section.active {
 }
 
 .filter-btn {
-    background-color: var(--secondary);
+    background-color: rgba(17, 34, 64, 0.9);
     color: var(--text);
     border: 1px solid var(--border);
     padding: 10px 20px;
@@ -278,6 +318,7 @@ section.active {
     cursor: pointer;
     transition: all 0.3s ease;
     font-weight: 500;
+    backdrop-filter: blur(5px);
 }
 
 .filter-btn.active, .filter-btn:hover {
@@ -293,7 +334,7 @@ section.active {
 }
 
 .work-item {
-    background-color: var(--secondary);
+    background-color: rgba(17, 34, 64, 0.9);
     border-radius: 10px;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -301,6 +342,7 @@ section.active {
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.5s ease forwards;
+    backdrop-filter: blur(5px);
 }
 
 .work-item:nth-child(1) { animation-delay: 0.1s; }
@@ -325,7 +367,7 @@ section.active {
 
 .work-img {
     height: 200px;
-    background-color: var(--primary);
+    background-color: rgba(10, 25, 47, 0.7);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -369,13 +411,14 @@ section.active {
 .contact-icon {
     width: 50px;
     height: 50px;
-    background-color: var(--secondary);
+    background-color: rgba(17, 34, 64, 0.9);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 20px;
     color: var(--accent);
+    backdrop-filter: blur(5px);
 }
 
 .contact-details h3 {
@@ -395,10 +438,11 @@ section.active {
 
 /* Форма обратной связи */
 .contact-form {
-    background-color: var(--secondary);
+    background-color: rgba(17, 34, 64, 0.9);
     padding: 40px;
     border-radius: 10px;
     border: 1px solid var(--border);
+    backdrop-filter: blur(5px);
 }
 
 .form-group {
@@ -414,12 +458,13 @@ section.active {
 .form-control {
     width: 100%;
     padding: 12px 15px;
-    background-color: var(--primary);
+    background-color: rgba(10, 25, 47, 0.7);
     border: 1px solid var(--border);
     border-radius: 5px;
     color: var(--text);
     font-family: 'Roboto', sans-serif;
     transition: border-color 0.3s ease;
+    backdrop-filter: blur(5px);
 }
 
 .form-control:focus {
@@ -473,11 +518,12 @@ textarea.form-control {
 
 /* Футер */
 footer {
-    background-color: var(--secondary);
+    background-color: rgba(17, 34, 64, 0.9);
     padding: 30px 0;
     text-align: center;
     border-top: 1px solid var(--border);
     margin-top: 50px;
+    backdrop-filter: blur(10px);
 }
 
 .footer-logo {
@@ -505,7 +551,7 @@ footer {
 .social-link {
     width: 40px;
     height: 40px;
-    background-color: var(--primary);
+    background-color: rgba(10, 25, 47, 0.7);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -545,6 +591,30 @@ footer {
     transform: translateY(1px);
 }
 
+/* Стили для сообщения "скоро будет" */
+.coming-soon-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(17, 34, 64, 0.95);
+    color: var(--accent);
+    padding: 20px 30px;
+    border-radius: 10px;
+    border: 2px solid var(--accent);
+    z-index: 2000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    animation: fadeInOut 3s ease forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    20% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+}
+
 /* Адаптация под мобильные устройства */
 @media (max-width: 992px) {
     .studio-name {
@@ -582,7 +652,7 @@ footer {
         left: 0;
         width: 100%;
         height: 100vh;
-        background-color: var(--primary);
+        background-color: rgba(10, 25, 47, 0.98);
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -592,6 +662,7 @@ footer {
         opacity: 0;
         transition: all 0.5s ease;
         z-index: 999;
+        backdrop-filter: blur(10px);
     }
     
     .nav-links.active {
@@ -682,318 +753,29 @@ footer {
         height: 28px;
     }
 
-    /* Дополнительные стили для исправления анимации фильтрации */
-.work-item {
-    transition: all 0.3s ease;
-    animation: none; /* Убираем статичную анимацию */
-}
+    /* Добавьте в конец style.css */
 
-.work-item.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.work-item.hidden {
-    opacity: 0;
-    transform: translateY(20px);
-    pointer-events: none;
-}
-
-/* Улучшение анимации для фильтров */
-.filter-btn {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Улучшенная анимация для сетки работ */
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.work-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-/* ========== ИСПРАВЛЕННАЯ АНИМАЦИЯ ФИЛЬТРАЦИИ ========== */
-.work-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-    transition: all 0.3s ease;
-}
-
-.work-item {
-    background-color: var(--secondary);
-    border-radius: 10px;
-    overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    border: 1px solid var(--border);
-    animation: none; /* Убираем автоматическую анимацию */
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Анимация появления элемента */
-@keyframes workItemAppear {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Анимация исчезновения элемента */
-@keyframes workItemDisappear {
-    0% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-}
-
-/* Классы для анимации через JavaScript */
-.work-item.hiding {
-    animation: workItemDisappear 0.3s ease forwards;
-    pointer-events: none;
-}
-
-.work-item.showing {
-    animation: workItemAppear 0.4s ease forwards;
-}
-
-/* Улучшенные стили для кнопок фильтра */
-.work-filter {
+.image-placeholder {
+    width: 100%;
+    height: 100%;
     display: flex;
+    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 50px;
+    background-color: rgba(10, 25, 47, 0.7);
 }
 
-.filter-btn {
-    background-color: var(--secondary);
-    color: var(--text);
-    border: 1px solid var(--border);
-    padding: 10px 24px;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-weight: 500;
-    font-size: 15px;
-    position: relative;
-    overflow: hidden;
-}
-
-.filter-btn.active, .filter-btn:hover {
-    background-color: var(--accent);
-    color: var(--primary);
-    border-color: var(--accent);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 168, 255, 0.2);
-}
-
-/* Индикатор активной кнопки */
-.filter-btn.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
-    height: 3px;
-    background-color: var(--primary);
-    border-radius: 2px;
-}
-
-/* Начальная анимация элементов при загрузке */
-@media (prefers-reduced-motion: no-preference) {
-    .work-item {
-        animation: workItemAppear 0.6s ease forwards;
-        animation-delay: calc(var(--item-index, 0) * 0.1s);
-        opacity: 0;
-    }
-}
-
-/* ========== ЭНЕРГЕТИЧЕСКИЕ НИТИ НА ФОНЕ ========== */
-#energyCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
+/* Стили для реальных изображений (когда добавятся) */
+.work-img img {
     width: 100%;
     height: 100%;
-    z-index: -10; /* Убедимся, что фон ПОД всем */
-    background: linear-gradient(to bottom, 
-        rgba(10, 25, 47, 0.95) 0%,
-        rgba(17, 34, 64, 0.9) 50%,
-        rgba(10, 25, 47, 0.95) 100%);
-    pointer-events: auto; /* Убираем это, чтобы мышь работала */
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-/* ОСНОВНОЙ КОНТЕНТ ДОЛЖЕН БЫТЬ ВЫШЕ ФОНА */
-body {
-    position: relative;
-    z-index: 1;
+.work-item:hover .work-img img {
+    transform: scale(1.05);
 }
+    
 
-/* ВСЕ остальные элементы должны иметь прозрачный фон */
-header {
-    background-color: rgba(10, 25, 47, 0.85) !important;
-    backdrop-filter: blur(10px);
-    position: relative;
-    z-index: 1000;
-}
-
-section {
-    background-color: transparent !important;
-    position: relative;
-    z-index: 1;
-}
-
-.service-card, .work-item, .contact-form {
-    background-color: rgba(17, 34, 64, 0.9) !important;
-    backdrop-filter: blur(5px);
-}
-
-footer {
-    background-color: rgba(17, 34, 64, 0.9) !important;
-    backdrop-filter: blur(10px);
-    position: relative;
-    z-index: 1;
-}
-
-/* ========== ФИКСИРОВАННЫЙ ФОН НА ВСЁ ОКНО ========== */
-#background-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -9999; /* ОЧЕНЬ низкий z-index */
-    pointer-events: none; /* Мышь проходит сквозь фон */
-}
-
-#energyCanvas {
-    width: 100%;
-    height: 100%;
-    display: block;
-    background: linear-gradient(to bottom, 
-        rgba(10, 25, 47, 1) 0%,
-        rgba(10, 25, 47, 0.98) 100%);
-}
-
-/* ========== ВЕСЬ КОНТЕНТ САЙТА ========== */
-#site-content {
-    position: relative;
-    z-index: 1; /* Выше фона */
-    background: transparent; /* Прозрачный фон для контента */
-}
-
-/* ВОЗВРАЩАЕМ НОРМАЛЬНЫЕ ФОНЫ ДЛЯ КОНТЕНТА */
-body {
-    background: transparent !important;
-}
-
-header {
-    background-color: rgba(10, 25, 47, 0.95) !important;
-    position: relative;
-    z-index: 1000;
-}
-
-section {
-    background-color: transparent;
-    position: relative;
-}
-
-.service-card, .work-item, .contact-form {
-    background-color: var(--secondary) !important;
-    /* Убираем backdrop-filter для производительности */
-}
-
-footer {
-    background-color: var(--secondary) !important;
-    position: relative;
-}
-
-/* ========== ФОН САЙТА ========== */
-#background-container {
-    position: absolute; /* Меняем с fixed на absolute */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* Просто -1, не -9999 */
-    pointer-events: none;
-    overflow: hidden;
-}
-
-#energyCanvas {
-    width: 100%;
-    height: 100%;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-/* ========== ОСНОВНОЙ СТИЛЬ ДОКУМЕНТА ========== */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    position: relative;
-}
-
-body {
-    background: transparent;
-    min-height: 100vh;
-    position: relative;
-}
-
-/* КОНТЕНТ должен быть ПОВЕРХ фона */
-#site-content {
-    position: relative;
-    z-index: 1;
-    background: transparent;
-}
-
-/* Делаем секции видимыми */
-section {
-    position: relative;
-    z-index: 2;
-    background: rgba(10, 25, 47, 0.7); /* Полупрозрачный фон для контента */
-    backdrop-filter: blur(5px);
-    margin-bottom: 20px; /* Отступы между секциями */
-}
-
-/* Заголовок остается сверху */
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: rgba(10, 25, 47, 0.95) !important;
-    backdrop-filter: blur(10px);
-}
-
-/* Основное содержимое должно учитывать фиксированный заголовок */
-main {
-    margin-top: 80px; /* Высота заголовка */
-    position: relative;
-    z-index: 1;
-}
 
 }
