@@ -89,31 +89,114 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========== УПРОЩЕННАЯ ФИЛЬТРАЦИЯ ==========
-const filterButtons = document.querySelectorAll('.filter-btn');
-const workItems = document.querySelectorAll('.work-item');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const workItems = document.querySelectorAll('.work-item');
 
-filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        // Смена активной кнопки
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        this.classList.add('active');
-        
-        const filterValue = this.getAttribute('data-filter');
-        
-        // ПРОСТАЯ фильтрация без сложной анимации
-        workItems.forEach(item => {
-            const category = item.getAttribute('data-category');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Смена активной кнопки
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
             
-            if (filterValue === 'all' || category === filterValue) {
-                // Просто показываем
-                item.style.display = 'block';
-            } else {
-                // Просто скрываем
-                item.style.display = 'none';
+            const filterValue = this.getAttribute('data-filter');
+            
+            // ПРОСТАЯ фильтрация без сложной анимации
+            workItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+                
+                if (filterValue === 'all' || category === filterValue) {
+                    // Просто показываем
+                    item.style.display = 'block';
+                } else {
+                    // Просто скрываем
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+    
+    // ========== КЛИК ПО УСЛУГАМ НА ГЛАВНОЙ ==========
+    // Находим все карточки услуг
+    const serviceCards = document.querySelectorAll('.service-card[data-filter]');
+    
+    // Добавляем обработчик клика на каждую карточку
+    serviceCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const filterType = this.getAttribute('data-filter');
+            
+            // Если это 3D дизайн (скоро будет), показываем сообщение
+            if (filterType === '3d') {
+                // Показываем всплывающее сообщение
+                const message = document.createElement('div');
+                message.className = 'coming-soon-message';
+                message.textContent = '3D Дизайн скоро будет доступен! Следите за обновлениями.';
+                document.body.appendChild(message);
+                
+                // Убираем сообщение через 3 секунды
+                setTimeout(() => {
+                    if (message.parentNode) {
+                        message.parentNode.removeChild(message);
+                    }
+                }, 3000);
+                return;
+            }
+            
+            // Переключаем навигацию на портфолио
+            navLinks.forEach(item => item.classList.remove('active'));
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Активируем ссылку "Портфолио"
+            const portfolioLink = document.querySelector('.nav-link[data-target="works"]');
+            if (portfolioLink) {
+                portfolioLink.classList.add('active');
+            }
+            
+            // Показываем секцию портфолио
+            const portfolioSection = document.getElementById('works');
+            if (portfolioSection) {
+                portfolioSection.classList.add('active');
+                
+                // Прокручиваем к портфолио
+                window.scrollTo({
+                    top: portfolioSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Через небольшую задержку активируем нужный фильтр
+                setTimeout(() => {
+                    // Находим нужную кнопку фильтра
+                    const filterBtn = document.querySelector(`.filter-btn[data-filter="${filterType}"]`);
+                    if (filterBtn) {
+                        // Снимаем активный класс со всех кнопок
+                        filterButtons.forEach(btn => btn.classList.remove('active'));
+                        
+                        // Добавляем активный класс на нужную кнопку
+                        filterBtn.classList.add('active');
+                        
+                        // Вызываем фильтрацию
+                        const filterValue = filterBtn.getAttribute('data-filter');
+                        
+                        workItems.forEach(item => {
+                            const category = item.getAttribute('data-category');
+                            
+                            if (filterValue === 'all' || category === filterValue) {
+                                item.style.display = 'block';
+                            } else {
+                                item.style.display = 'none';
+                            }
+                        });
+                    }
+                }, 500); // Небольшая задержка для плавности
+            }
+            
+            // Закрываем мобильное меню если открыто
+            if (navLinksContainer.classList.contains('active')) {
+                navLinksContainer.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                body.style.overflow = 'auto';
             }
         });
     });
-});
     
     // Отправка формы
     const contactForm = document.getElementById('contactForm');
@@ -199,4 +282,31 @@ filterButtons.forEach(button => {
             item.style.display = 'block';
         });
     }, 100);
+});
+
+// ========== КЛИКАБЕЛЬНОСТЬ КАРТОЧЕК ПОРТФОЛИО ==========
+// Пока это заглушка для будущей функциональности
+workItems.forEach(item => {
+    item.addEventListener('click', function() {
+        const category = this.getAttribute('data-category');
+        const title = this.querySelector('h3').textContent;
+        
+        // В будущем здесь будет переход на отдельную страницу с работами
+        console.log(`Клик по категории: ${category}, заголовок: ${title}`);
+        
+        // Временное сообщение
+        const message = document.createElement('div');
+        message.className = 'coming-soon-message';
+        message.textContent = `Раздел "${title}" в разработке. Скоро здесь будут работы!`;
+        document.body.appendChild(message);
+        
+        setTimeout(() => {
+            if (message.parentNode) {
+                message.parentNode.removeChild(message);
+            }
+        }, 3000);
+    });
+    
+    // Добавляем курсор указателя
+    item.style.cursor = 'pointer';
 });
