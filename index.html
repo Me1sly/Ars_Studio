@@ -8,20 +8,22 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Дополнительные стили для правильного отображения фона */
+        /* Базовые стили для корректного отображения */
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
+            width: 100%;
             overflow-x: hidden;
         }
         
         body {
             position: relative;
-            background: transparent;
+            min-height: 100vh;
+            background: var(--primary);
         }
         
-        /* Фон на весь документ */
+        /* Контейнер для фона */
         #background-container {
             position: fixed;
             top: 0;
@@ -32,10 +34,24 @@
             pointer-events: none;
         }
         
+        /* Canvas для ПК */
         #energyCanvas {
             width: 100%;
             height: 100%;
             display: block;
+            background: linear-gradient(135deg, #0a192f 0%, #112240 100%);
+        }
+        
+        /* Мобильный фон (простой градиент) */
+        .mobile-background {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a192f 0%, #112240 50%, #0a192f 100%);
+            z-index: -1;
         }
         
         /* Основной контент */
@@ -57,16 +73,34 @@
             margin-top: 80px;
         }
         
-        /* Полупрозрачные секции для видимости фона */
-        section {
-            background-color: rgba(10, 25, 47, 0.85);
+        /* На мобильных устройствах */
+        @media (max-width: 768px) {
+            #energyCanvas {
+                display: none !important;
+            }
+            
+            .mobile-background {
+                display: block;
+            }
+            
+            body {
+                background: linear-gradient(135deg, #0a192f 0%, #112240 50%, #0a192f 100%);
+            }
+        }
+        
+        /* Для очень маленьких экранов */
+        @media (max-width: 480px) {
+            main {
+                margin-top: 70px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Анимированный фон -->
+    <!-- Анимированный фон для ПК -->
     <div id="background-container">
         <canvas id="energyCanvas"></canvas>
+        <div class="mobile-background"></div>
     </div>
     
     <!-- Весь контент сайта -->
@@ -325,20 +359,24 @@
 
     <!-- Скрипт анимированного фона -->
     <script>
-    // energy-background.js - прямо в HTML
     document.addEventListener('DOMContentLoaded', function() {
         const canvas = document.getElementById('energyCanvas');
-        if (!canvas) return;
+        const isMobile = window.innerWidth <= 768;
         
-        // Отключаем на мобильных для производительности
-        if (window.innerWidth <= 768) {
-            canvas.style.display = 'none';
-            return;
+        // Если мобильное устройство, отключаем сложную анимацию
+        if (isMobile) {
+            if (canvas) {
+                canvas.style.display = 'none';
+            }
+            return; // Выходим, не запускаем анимацию
         }
+        
+        // Запускаем анимацию только на ПК
+        if (!canvas) return;
         
         const ctx = canvas.getContext('2d');
         
-        // Устанавливаем размер canvas на весь экран
+        // Устанавливаем размер canvas
         function setCanvasSize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -347,11 +385,11 @@
         
         let { width, height } = setCanvasSize();
         
-        // Настройки эффекта
+        // Настройки
         const particles = [];
-        const particleCount = 50;
-        const connectionDistance = 100;
-        const mouseRadius = 120;
+        const particleCount = 60;
+        const connectionDistance = 120;
+        const mouseRadius = 150;
         
         let mouse = { x: width / 2, y: height / 2, active: false };
         
@@ -361,10 +399,10 @@
                 particles.push({
                     x: Math.random() * width,
                     y: Math.random() * height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
+                    vx: (Math.random() - 0.5) * 0.4,
+                    vy: (Math.random() - 0.5) * 0.4,
                     radius: Math.random() * 1.5 + 0.5,
-                    color: `hsla(${190 + Math.random() * 40}, 70%, 60%, ${0.2 + Math.random() * 0.3})`
+                    color: `hsla(${190 + Math.random() * 40}, 80%, 60%, ${0.2 + Math.random() * 0.3})`
                 });
             }
         }
@@ -402,13 +440,13 @@
                     const dy = mouse.y - p.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
                     
-                    if (distance < mouseRadius) {
+                    if (distance < mouseRadius && distance > 10) {
                         const force = (mouseRadius - distance) / mouseRadius;
                         const angle = Math.atan2(dy, dx);
                         
                         // Отталкивание от мыши
-                        p.vx -= Math.cos(angle) * force * 0.3;
-                        p.vy -= Math.sin(angle) * force * 0.3;
+                        p.vx -= Math.cos(angle) * force * 0.2;
+                        p.vy -= Math.sin(angle) * force * 0.2;
                     }
                 }
                 
@@ -422,7 +460,7 @@
                 ctx.fillStyle = p.color;
                 ctx.fill();
                 
-                // Свечение
+                // Легкое свечение
                 ctx.beginPath();
                 ctx.arc(p.x, p.y, p.radius * 2, 0, Math.PI * 2);
                 ctx.fillStyle = p.color.replace('0.5', '0.1').replace('0.4', '0.08').replace('0.3', '0.06');
@@ -459,6 +497,13 @@
         
         // Ресайз окна
         window.addEventListener('resize', function() {
+            // Проверяем, не переключились ли на мобильный режим
+            const nowMobile = window.innerWidth <= 768;
+            if (nowMobile !== isMobile) {
+                location.reload(); // Перезагружаем при изменении режима
+                return;
+            }
+            
             const newSize = setCanvasSize();
             width = newSize.width;
             height = newSize.height;
