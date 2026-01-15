@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARS Studio | Графический, Моушен и 3D Дизайн</title>
-    <!-- Для большинства браузеров -->
+    
+    <!-- Иконки -->
     <link rel="icon" type="image/x-icon" href="123.jpg">
-    <!-- Для современных браузеров (PNG формата) -->
     <link rel="icon" type="image/png" sizes="32x32" href="123.jpg">
     <link rel="icon" type="image/png" sizes="16x16" href="123.jpg">
-    <!-- Для Apple устройств -->
     <link rel="apple-touch-icon" sizes="180x180" href="123.jpg">
-    <!-- Для Android -->
     <link rel="manifest" href="123.jpg">  
+    
+    <!-- Стили -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    
     <style>
         html, body {
             margin: 0;
@@ -26,7 +27,7 @@
         
         body {
             position: relative;
-            background: transparent;
+            background: var(--primary);
         }
         
         /* Фон на весь документ */
@@ -46,6 +47,18 @@
             display: block;
         }
         
+        /* Упрощенный фон для мобильных */
+        .mobile-background {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, rgba(10, 25, 47, 0.95) 0%, rgba(17, 34, 64, 0.9) 50%, rgba(0, 168, 255, 0.2) 100%);
+        }
+        
         /* Основной контент */
         #site-content {
             position: relative;
@@ -63,6 +76,22 @@
         /* Отступ для фиксированного заголовка */
         main {
             margin-top: 80px;
+        }
+        
+        /* Медиазапрос для мобильных устройств */
+        @media (max-width: 768px) {
+            #background-container {
+                display: none !important;
+            }
+            
+            .mobile-background {
+                display: block !important;
+            }
+            
+            /* Уменьшаем отступы на мобильных */
+            main {
+                margin-top: 70px;
+            }
         }
         
         /* Модальное окно для просмотра изображений */
@@ -226,13 +255,39 @@
             background: var(--accent-light);
             transform: translate(-50%, -50%) scale(1.1);
         }
+        
+        /* Адаптация модального окна для мобильных */
+        @media (max-width: 768px) {
+            .modal-content {
+                max-width: 95%;
+                max-height: 95%;
+            }
+            
+            .modal-img, .modal-video {
+                max-height: 50vh;
+            }
+            
+            .modal-info {
+                padding: 15px;
+            }
+            
+            .close-modal {
+                width: 35px;
+                height: 35px;
+                top: 10px;
+                right: 10px;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- Анимированный фон -->
+    <!-- Анимированный фон (только для ПК) -->
     <div id="background-container">
         <canvas id="energyCanvas"></canvas>
     </div>
+    
+    <!-- Упрощенный фон для мобильных -->
+    <div class="mobile-background"></div>
     
     <!-- Модальное окно для просмотра -->
     <div id="imageModal" class="modal">
@@ -391,31 +446,42 @@
                         </div>
                         
                         <div class="contact-form">
-                            <form id="contactForm">
-                                <div class="form-group">
-                                    <label for="name">Ваше имя</label>
-                                    <input type="text" id="name" class="form-control" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="email">Ваш email</label>
-                                    <input type="email" id="email" class="form-control" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="subject">Тема</label>
-                                    <input type="text" id="subject" class="form-control" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="message">Сообщение</label>
-                                    <textarea id="message" class="form-control" placeholder="Опишите ваш проект или задайте вопрос..." required></textarea>
-                                </div>
-                                
-                                <button type="submit" class="submit-btn">Отправить заявку</button>
-                                
-                                <div class="form-message" id="formMessage"></div>
-                            </form>
+                            <!-- Уведомление о временной неработоспособности -->
+                            <div class="form-notice">
+                                <i class="fas fa-tools"></i>
+                                <strong>Форма временно недоступна</strong>
+                                <p>Используйте контакты слева или мессенджеры для связи</p>
+                            </div>
+                            
+                            <div class="form-disabled">
+                                <form id="contactForm">
+                                    <div class="form-group">
+                                        <label for="name">Ваше имя</label>
+                                        <input type="text" id="name" class="form-control" placeholder="Форма временно не работает" disabled>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="email">Ваш email</label>
+                                        <input type="email" id="email" class="form-control" placeholder="Используйте контакты слева" disabled>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="subject">Тема</label>
+                                        <input type="text" id="subject" class="form-control" placeholder="Телефон: +7 993 334 02 71" disabled>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="message">Сообщение</label>
+                                        <textarea id="message" class="form-control" placeholder="Telegram: @Ars_Amore\WhatsApp: +7 993 334 02 71" disabled></textarea>
+                                    </div>
+                                    
+                                    <button type="button" class="submit-btn" disabled>
+                                        <i class="fas fa-exclamation-triangle"></i> Форма временно недоступна
+                                    </button>
+                                    
+                                    <div class="form-message" id="formMessage"></div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -450,18 +516,24 @@
         </footer>
     </div>
 
-    <!-- Скрипт анимированного фона -->
+    <!-- Скрипт анимированного фона (только для ПК) -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const canvas = document.getElementById('energyCanvas');
-        if (!canvas) return;
+        const backgroundContainer = document.getElementById('background-container');
         
-        // Отключаем на мобильных для производительности
-        if (window.innerWidth <= 768) {
-            particleCount = 20;
-            connectionDistance = 80;
+        // Проверяем, мобильное ли устройство
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile || !canvas) {
+            // На мобильных отключаем анимированный фон
+            if (backgroundContainer) {
+                backgroundContainer.style.display = 'none';
+            }
+            return;
         }
         
+        // Настройки для ПК
         const ctx = canvas.getContext('2d');
         
         // Устанавливаем размер canvas на весь экран
@@ -585,6 +657,20 @@
         
         // Ресайз окна
         window.addEventListener('resize', function() {
+            // Проверяем, не перешли ли на мобильный режим
+            if (window.innerWidth <= 768) {
+                // На мобильных отключаем анимированный фон
+                if (backgroundContainer) {
+                    backgroundContainer.style.display = 'none';
+                }
+                return;
+            } else {
+                // На ПК показываем фон
+                if (backgroundContainer) {
+                    backgroundContainer.style.display = 'block';
+                }
+            }
+            
             const newSize = setCanvasSize();
             width = newSize.width;
             height = newSize.height;
