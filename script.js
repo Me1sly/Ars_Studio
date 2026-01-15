@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // ========== УПРОЩЕННАЯ ФИЛЬТРАЦИЯ ==========
+    // ========== ФИЛЬТРАЦИЯ ПОРТФОЛИО ==========
     const filterButtons = document.querySelectorAll('.filter-btn');
     const workItems = document.querySelectorAll('.work-item');
 
@@ -100,15 +100,15 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const filterValue = this.getAttribute('data-filter');
             
-            // ПРОСТАЯ фильтрация без сложной анимации
+            // Фильтрация элементов
             workItems.forEach(item => {
                 const category = item.getAttribute('data-category');
                 
                 if (filterValue === 'all' || category === filterValue) {
-                    // Просто показываем
                     item.style.display = 'block';
+                    // Добавляем небольшую анимацию появления
+                    item.style.animation = 'fadeInUp 0.5s ease forwards';
                 } else {
-                    // Просто скрываем
                     item.style.display = 'none';
                 }
             });
@@ -116,23 +116,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ========== КЛИК ПО УСЛУГАМ НА ГЛАВНОЙ ==========
-    // Находим все карточки услуг
     const serviceCards = document.querySelectorAll('.service-card[data-filter]');
     
-    // Добавляем обработчик клика на каждую карточку
     serviceCards.forEach(card => {
         card.addEventListener('click', function() {
             const filterType = this.getAttribute('data-filter');
             
             // Если это 3D дизайн (скоро будет), показываем сообщение
             if (filterType === '3d') {
-                // Показываем всплывающее сообщение
                 const message = document.createElement('div');
                 message.className = 'coming-soon-message';
                 message.textContent = '3D Дизайн скоро будет доступен! Следите за обновлениями.';
                 document.body.appendChild(message);
                 
-                // Убираем сообщение через 3 секунды
                 setTimeout(() => {
                     if (message.parentNode) {
                         message.parentNode.removeChild(message);
@@ -164,16 +160,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Через небольшую задержку активируем нужный фильтр
                 setTimeout(() => {
-                    // Находим нужную кнопку фильтра
                     const filterBtn = document.querySelector(`.filter-btn[data-filter="${filterType}"]`);
                     if (filterBtn) {
-                        // Снимаем активный класс со всех кнопок
                         filterButtons.forEach(btn => btn.classList.remove('active'));
-                        
-                        // Добавляем активный класс на нужную кнопку
                         filterBtn.classList.add('active');
                         
-                        // Вызываем фильтрацию
                         const filterValue = filterBtn.getAttribute('data-filter');
                         
                         workItems.forEach(item => {
@@ -181,12 +172,13 @@ document.addEventListener('DOMContentLoaded', function() {
                             
                             if (filterValue === 'all' || category === filterValue) {
                                 item.style.display = 'block';
+                                item.style.animation = 'fadeInUp 0.5s ease forwards';
                             } else {
                                 item.style.display = 'none';
                             }
                         });
                     }
-                }, 500); // Небольшая задержка для плавности
+                }, 500);
             }
             
             // Закрываем мобильное меню если открыто
@@ -216,6 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.textContent = 'Отправка...';
             submitBtn.disabled = true;
             
+            // Имитация отправки
             setTimeout(() => {
                 formMessage.textContent = 'Заявка отправлена! Мы свяжемся с вами в ближайшее время.';
                 formMessage.className = 'form-message success';
@@ -229,6 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     formMessage.style.display = 'none';
                 }, 5000);
                 
+                // Логирование данных для отправки
                 console.log('Данные для отправки на arsenbudagyan3@mail.ru:');
                 console.log('Имя:', name);
                 console.log('Email:', email);
@@ -273,40 +267,4 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentYear = new Date().getFullYear();
         yearSpan.textContent = yearSpan.textContent.replace('2023', currentYear);
     }
-    
-    // ИНИЦИАЛИЗАЦИЯ - Убедимся что все элементы видны при загрузке
-    setTimeout(() => {
-        workItems.forEach(item => {
-            item.style.opacity = '1';
-            item.style.transform = 'translateY(0)';
-            item.style.display = 'block';
-        });
-    }, 100);
-});
-
-// ========== КЛИКАБЕЛЬНОСТЬ КАРТОЧЕК ПОРТФОЛИО ==========
-// Пока это заглушка для будущей функциональности
-workItems.forEach(item => {
-    item.addEventListener('click', function() {
-        const category = this.getAttribute('data-category');
-        const title = this.querySelector('h3').textContent;
-        
-        // В будущем здесь будет переход на отдельную страницу с работами
-        console.log(`Клик по категории: ${category}, заголовок: ${title}`);
-        
-        // Временное сообщение
-        const message = document.createElement('div');
-        message.className = 'coming-soon-message';
-        message.textContent = `Раздел "${title}" в разработке. Скоро здесь будут работы!`;
-        document.body.appendChild(message);
-        
-        setTimeout(() => {
-            if (message.parentNode) {
-                message.parentNode.removeChild(message);
-            }
-        }, 3000);
-    });
-    
-    // Добавляем курсор указателя
-    item.style.cursor = 'pointer';
 });
