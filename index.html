@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARS Studio | Графический, Моушен и 3D Дизайн</title>
+    <!-- Для большинства браузеров -->
+    <link rel="icon" type="image/x-icon" href="123.jpg">
+    <!-- Для современных браузеров (PNG формата) -->
+    <link rel="icon" type="image/png" sizes="32x32" href="123.jpg">
+    <link rel="icon" type="image/png" sizes="16x16" href="123.jpg">
+    <!-- Для Apple устройств -->
+    <link rel="apple-touch-icon" sizes="180x180" href="123.jpg">
+    <!-- Для Android -->
+    <link rel="manifest" href="123.jpg">  
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -55,12 +64,194 @@
         main {
             margin-top: 80px;
         }
+        
+        /* Модальное окно для просмотра изображений */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 25, 47, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            background: var(--secondary);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--accent);
+        }
+        
+        .modal-img {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            display: block;
+        }
+        
+        .modal-video {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            display: block;
+        }
+        
+        .modal-info {
+            padding: 20px;
+            background: rgba(17, 34, 64, 0.95);
+            border-top: 1px solid var(--border);
+        }
+        
+        .modal-info h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .modal-info p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+        
+        .modal-info .category {
+            display: inline-block;
+            background: rgba(0, 168, 255, 0.2);
+            color: var(--accent-light);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(17, 34, 64, 0.9);
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            color: var(--accent);
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2001;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            background: var(--accent);
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+        
+        .view-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .view-btn:hover {
+            background: var(--accent-light);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 168, 255, 0.3);
+        }
+        
+        /* Видео контейнер в портфолио */
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: rgba(10, 25, 47, 0.7);
+            overflow: hidden;
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .video-thumbnail:hover {
+            transform: scale(1.05);
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(0, 168, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--primary);
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .play-button:hover {
+            background: var(--accent-light);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
     </style>
 </head>
 <body>
     <!-- Анимированный фон -->
     <div id="background-container">
         <canvas id="energyCanvas"></canvas>
+    </div>
+    
+    <!-- Модальное окно для просмотра -->
+    <div id="imageModal" class="modal">
+        <div class="close-modal" onclick="closeModal()">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="modal-content">
+            <div id="modalMediaContainer">
+                <!-- Контент будет добавлен динамически -->
+            </div>
+            <div class="modal-info">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDescription"></p>
+                <span class="category" id="modalCategory"></span>
+                <div style="margin-top: 15px;">
+                    <button class="view-btn" onclick="closeModal()">Закрыть</button>
+                </div>
+            </div>
+        </div>
     </div>
     
     <!-- Весь контент сайта -->
@@ -132,134 +323,23 @@
             </section>
             
             <!-- Портфолио -->
-<section id="works">
-    <div class="container">
-        <h2 class="section-title">Наше портфолио</h2>
-        <p class="section-subtitle">Примеры наших работ в различных направлениях дизайна</p>
-        
-        <div class="work-filter">
-            <button class="filter-btn active" data-filter="all">Все работы</button>
-            <button class="filter-btn" data-filter="graphic">Графический дизайн</button>
-            <button class="filter-btn" data-filter="motion">Моушен дизайн</button>
-            <button class="filter-btn" data-filter="3d">3D графика</button>
-        </div>
-        
-        <div class="work-grid">
-            <!-- Карточки для Графического дизайна -->
-            <div class="work-item" data-category="graphic">
-                <div class="work-img has-image">
-                    <!-- Замените на реальные фото -->
-                    <img src="https://via.placeholder.com/600x400/112240/00a8ff?text=Логотипы" alt="Пример логотипа">
-                    <div class="image-placeholder">
-                        <i class="fas fa-pen-nib"></i>
+            <section id="works">
+                <div class="container">
+                    <h2 class="section-title">Наше портфолио</h2>
+                    <p class="section-subtitle">Примеры наших работ в различных направлениях дизайна</p>
+                    
+                    <div class="work-filter">
+                        <button class="filter-btn active" data-filter="all">Все работы</button>
+                        <button class="filter-btn" data-filter="graphic">Графический дизайн</button>
+                        <button class="filter-btn" data-filter="motion">Моушен дизайн</button>
+                        <button class="filter-btn" data-filter="3d">3D графика</button>
+                    </div>
+                    
+                    <div class="work-grid" id="portfolioGrid">
+                        <!-- Карточки будут добавлены динамически через JavaScript -->
                     </div>
                 </div>
-                <div class="work-info">
-                    <h3>Логотипы</h3>
-                    <p>Создание уникальных логотипов для брендов любого масштаба</p>
-                </div>
-            </div>
-            
-          <div class="work-item" data-category="graphic">
-    <div class="work-img has-image">
-        <img src="vizitka 2.jpg" alt="Пример визитки">
-        <div class="image-placeholder">
-            <i class="fas fa-id-card"></i>
-        </div>
-    </div>
-    <div class="work-info">
-        <!-- Добавьте div для контента с фоном -->
-        <div class="work-info-content">
-            <h3>Визитки</h3>
-            <p>Дизайн деловых и креативных визитных карточек</p>
-        </div>
-    </div>
-</div>
-            
-            <div class="work-item" data-category="graphic">
-                <div class="work-img has-image">
-                    <img src="https://via.placeholder.com/600x400/112240/00a8ff?text=Постеры" alt="Пример постера">
-                    <div class="image-placeholder">
-                        <i class="fas fa-image"></i>
-                    </div>
-                </div>
-                <div class="work-info">
-                    <h3>Постеры</h3>
-                    <p>Разработка рекламных и событийных постеров</p>
-                </div>
-            </div>
-            
-            <div class="work-item" data-category="graphic">
-                <div class="work-img has-image">
-                    <img src="https://via.placeholder.com/600x400/112240/00a8ff?text=Меню" alt="Пример меню">
-                    <div class="image-placeholder">
-                        <i class="fas fa-utensils"></i>
-                    </div>
-                </div>
-                <div class="work-info">
-                    <h3>Меню и другое</h3>
-                    <p>Дизайн ресторанных меню и другой полиграфии</p>
-                </div>
-            </div>
-            
-            <!-- Карточки для Моушен дизайна (обновленные) -->
-            <div class="work-item" data-category="motion">
-                <div class="work-img has-image">
-                    <!-- Можно использовать превью видео или скриншот -->
-                    <img src="https://via.placeholder.com/600x400/112240/00a8ff?text=Моушен+Дизайн" alt="Пример моушен дизайна">
-                    <div class="image-placeholder">
-                        <i class="fas fa-film"></i>
-                    </div>
-                </div>
-                <div class="work-info">
-                    <h3>Анимационный ролик для приложения</h3>
-                    <p>30-секундный промо-ролик для запуска нового мобильного приложения</p>
-                </div>
-            </div>
-            
-            <div class="work-item" data-category="motion">
-                <div class="work-img has-image">
-                    <img src="https://via.placeholder.com/600x400/112240/00a8ff?text=Инфографика" alt="Пример инфографики">
-                    <div class="image-placeholder">
-                        <i class="fas fa-video"></i>
-                    </div>
-                </div>
-                <div class="work-info">
-                    <h3>Анимированная инфографика</h3>
-                    <p>Серия анимированных инфографик для годового отчета компании</p>
-                </div>
-            </div>
-            
-            <!-- Карточки для 3D графики (обновленные) -->
-            <div class="work-item" data-category="3d">
-                <div class="work-img has-image">
-                    <img src="https://via.placeholder.com/600x400/112240/00a8ff?text=3D+Интерьер" alt="Пример 3D визуализации">
-                    <div class="image-placeholder">
-                        <i class="fas fa-cube"></i>
-                    </div>
-                </div>
-                <div class="work-info">
-                    <h3>3D визуализация интерьера</h3>
-                    <p>Фотореалистичная 3D визуализация дизайна интерьера ресторана</p>
-                </div>
-            </div>
-            
-            <!-- Можно добавить еще карточек для баланса -->
-            <div class="work-item" data-category="3d">
-                <div class="work-img has-image">
-                    <img src="https://via.placeholder.com/600x400/112240/00a8ff?text=3D+Продукт" alt="Пример 3D продукта">
-                    <div class="image-placeholder">
-                        <i class="fas fa-cube"></i>
-                    </div>
-                </div>
-                <div class="work-info">
-                    <h3>3D моделирование продукта</h3>
-                    <p>Создание 3D моделей для каталогов и рекламы</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+            </section>
             
             <!-- Контакты -->
             <section id="contacts">
@@ -377,11 +457,10 @@
         if (!canvas) return;
         
         // Отключаем на мобильных для производительности
-       if (window.innerWidth <= 768) {
-    // Не отключаем полностью, а уменьшаем сложность
-    particleCount = 20;
-    connectionDistance = 80;
-}
+        if (window.innerWidth <= 768) {
+            particleCount = 20;
+            connectionDistance = 80;
+        }
         
         const ctx = canvas.getContext('2d');
         
@@ -525,5 +604,6 @@
     
     <!-- Основной скрипт сайта -->
     <script src="script.js"></script>
+    <script src="portfolio-data.js"></script>
 </body>
 </html>
