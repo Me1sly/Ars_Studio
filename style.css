@@ -17,11 +17,12 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: transparent;
+    background-color: var(--primary);
     color: var(--text);
     line-height: 1.6;
     overflow-x: hidden;
     position: relative;
+    min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -122,6 +123,7 @@ main {
     margin-top: 80px;
     position: relative;
     z-index: 1;
+    background-color: transparent;
 }
 
 section {
@@ -667,6 +669,55 @@ footer {
     100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
 }
 
+/* Стили для уведомления о временной неработоспособности формы */
+.form-notice {
+    background: rgba(255, 193, 7, 0.15);
+    border-left: 4px solid #ffc107;
+    color: #ffc107;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.form-notice i {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.form-notice strong {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.form-notice p {
+    margin: 0;
+    font-size: 14px;
+    color: rgba(255, 193, 7, 0.9);
+}
+
+/* Стили для неактивной формы */
+.form-disabled {
+    opacity: 0.7;
+    pointer-events: none;
+    position: relative;
+}
+
+.form-disabled::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 25, 47, 0.3);
+    border-radius: 10px;
+    z-index: 1;
+}
+
 /* Адаптация под мобильные устройства */
 @media (max-width: 992px) {
     .studio-name {
@@ -759,11 +810,29 @@ footer {
     
     section {
         padding: 80px 0;
+        min-height: auto;
+    }
+    
+    main {
+        margin-top: 70px;
     }
     
     .work-grid {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         gap: 20px;
+    }
+    
+    .work-img {
+        height: 180px;
+    }
+    
+    /* Улучшаем читаемость текста на мобильных */
+    .work-info h3 {
+        font-size: 16px;
+    }
+    
+    .work-info p {
+        font-size: 13px;
     }
 }
 
@@ -811,83 +880,41 @@ footer {
         height: 28px;
     }
     
-    .modal-content {
-        max-width: 95%;
-        max-height: 95%;
+    .section-title {
+        font-size: 2rem;
     }
     
-    .modal-img, .modal-video {
-        max-height: 60vh;
+    .section-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 30px;
     }
-
-
-    /* Исправление для изображений в портфолио */
-.work-img {
-    height: 200px;
-    background-color: rgba(10, 25, 47, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 60px;
-    color: var(--accent);
-    position: relative;
-    overflow: hidden;
-    padding: 0;
-    margin: 0;
-}
-
-.work-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.3s ease;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-.work-img .image-placeholder {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(10, 25, 47, 0.7);
-    z-index: 2;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.work-img:hover .image-placeholder {
-    opacity: 1;
-}
-
-.work-img:hover img {
-    transform: scale(1.05);
-}
-
-/* Убираем стандартные иконки когда есть изображение */
-.work-img:has(img) .image-placeholder i {
-    display: none;
-}
-
-/* Показываем иконку увеличения только при наведении */
-.work-img:has(img):hover .image-placeholder::after {
-    content: '\f00e';
-    font-family: 'Font Awesome 6 Free';
-    font-weight: 900;
-    font-size: 30px;
-    color: var(--accent);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 3;
-}
-
+    
+    /* Улучшаем кнопки фильтра на мобильных */
+    .work-filter {
+        gap: 10px;
+    }
+    
+    .filter-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+    
+    /* Улучшаем сервис-карты на мобильных */
+    .services {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .service-card {
+        padding: 20px;
+    }
+    
+    .service-icon {
+        font-size: 40px;
+        margin-bottom: 15px;
+    }
+    
+    .service-card h3 {
+        font-size: 20px;
+    }
 }
