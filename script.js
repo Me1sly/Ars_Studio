@@ -7,6 +7,32 @@ document.addEventListener('DOMContentLoaded', function() {
     const body = document.body;
     const logoLink = document.querySelector('.logo');
     
+    // Глобальная функция фильтрации портфолио
+    window.filterPortfolio = function(filterValue) {
+        const workItems = document.querySelectorAll('.work-item');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        
+        // Смена активной кнопки фильтра
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        const activeFilterBtn = document.querySelector(`.filter-btn[data-filter="${filterValue}"]`);
+        if (activeFilterBtn) {
+            activeFilterBtn.classList.add('active');
+        }
+        
+        // Фильтрация элементов
+        workItems.forEach(item => {
+            const category = item.getAttribute('data-category');
+            
+            if (filterValue === 'all' || category === filterValue) {
+                item.style.display = 'block';
+                // Добавляем анимацию
+                item.style.animation = 'fadeInUp 0.5s ease forwards';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    };
+    
     // ========== Кликабельный логотип ==========
     logoLink.addEventListener('click', function(e) {
         e.preventDefault();
@@ -27,6 +53,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 behavior: 'smooth'
             });
         }
+        
+        // Сбрасываем фильтр на "Все работы"
+        filterPortfolio('all');
         
         if (navLinksContainer.classList.contains('active')) {
             navLinksContainer.classList.remove('active');
@@ -67,6 +96,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     top: targetSection.offsetTop - 80,
                     behavior: 'smooth'
                 });
+                
+                // Если переходим в портфолио, сбрасываем фильтр на "Все работы"
+                if (targetId === 'works') {
+                    setTimeout(() => {
+                        filterPortfolio('all');
+                    }, 100);
+                }
             }
             
             if (navLinksContainer.classList.contains('active')) {
@@ -77,41 +113,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Закрытие меню при клике вне меню
-    document.addEventListener('click', function(e) {
-        if (!navLinksContainer.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-            if (navLinksContainer.classList.contains('active')) {
-                navLinksContainer.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                body.style.overflow = 'auto';
-            }
-        }
-    });
-    
     // ========== ФИЛЬТРАЦИЯ ПОРТФОЛИО ==========
     const filterButtons = document.querySelectorAll('.filter-btn');
-    const workItems = document.querySelectorAll('.work-item');
-
+    
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Смена активной кнопки
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            
             const filterValue = this.getAttribute('data-filter');
-            
-            // Фильтрация элементов
-            workItems.forEach(item => {
-                const category = item.getAttribute('data-category');
-                
-                if (filterValue === 'all' || category === filterValue) {
-                    item.style.display = 'block';
-                    // Добавляем небольшую анимацию появления
-                    item.style.animation = 'fadeInUp 0.5s ease forwards';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
+            filterPortfolio(filterValue);
         });
     });
     
@@ -158,27 +166,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     behavior: 'smooth'
                 });
                 
-                // Через небольшую задержку активируем нужный фильтр
-                setTimeout(() => {
-                    const filterBtn = document.querySelector(`.filter-btn[data-filter="${filterType}"]`);
-                    if (filterBtn) {
-                        filterButtons.forEach(btn => btn.classList.remove('active'));
-                        filterBtn.classList.add('active');
-                        
-                        const filterValue = filterBtn.getAttribute('data-filter');
-                        
-                        workItems.forEach(item => {
-                            const category = item.getAttribute('data-category');
-                            
-                            if (filterValue === 'all' || category === filterValue) {
-                                item.style.display = 'block';
-                                item.style.animation = 'fadeInUp 0.5s ease forwards';
-                            } else {
-                                item.style.display = 'none';
-                            }
-                        });
-                    }
-                }, 500);
+                // НЕМЕДЛЕННО применяем фильтр без задержки
+                filterPortfolio(filterType);
             }
             
             // Закрываем мобильное меню если открыто
@@ -232,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Плавная прокрутка
+    // Плавная прокрутка для ссылок с якорями
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             if (this.classList.contains('logo')) return;
@@ -257,6 +246,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     top: targetElement.offsetTop - 80,
                     behavior: 'smooth'
                 });
+                
+                // Если переходим в портфолио, сбрасываем фильтр на "Все работы"
+                if (targetId === '#works') {
+                    setTimeout(() => {
+                        filterPortfolio('all');
+                    }, 100);
+                }
             }
         });
     });
